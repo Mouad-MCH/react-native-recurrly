@@ -1,7 +1,10 @@
 import "@/globale.css";
 import { Link } from "expo-router";
 import { FlatList, Text, View, ScrollView } from "react-native";
+import { SafeAreaView as RNSafeAreaView} from "react-native-safe-area-context";
+import { styled } from "nativewind";
 
+const SafeAreaView = styled(RNSafeAreaView);
 
 
 const DATA = [
@@ -19,14 +22,14 @@ const DATA = [
 
 export default function App() {
   return (
-    <View className="flex-1 items-center justify-center bg-background p-5">
+    <SafeAreaView className="flex-1 bg-background p-5">
       <Text className="text-xl font-bold text-success">
         Welcome to Nativewind!
       </Text>
       <Link href="/onboarding" className="mt-4 rounded bg-primary text-white p-4">
         Go to Onboarding
       </Link>
-      <View className="flex-row mt-3 space-x-4 gap-1 ">
+      <View className="flex-row mt-3 space-x-4 gap-1 justify-center mb-3">
           <Link href="/(auth)/sign-in" className="mt-4 rounded bg-foreground/50 text-white p-4">
             Sign In
           </Link>
@@ -55,7 +58,7 @@ export default function App() {
       </Link>
 
 
-      <ScrollView className="mt-4 w-full border border-primary rounded">
+      {/* <ScrollView className="mt-4 w-full border border-primary rounded">
         <FlatList
           data={DATA}
           keyExtractor={(item) => item.id}
@@ -65,7 +68,7 @@ export default function App() {
             </View>
           )}
         />
-      </ScrollView>
-    </View>
+      </ScrollView> */}
+    </SafeAreaView>
   );
 }
