@@ -1,98 +1,71 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import "@/globale.css";
+import { Link } from "expo-router";
+import { FlatList, Text, View, ScrollView } from "react-native";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
 
-export default function HomeScreen() {
+
+const DATA = [
+  { id: '1', title: 'Item 1' },
+  { id: '2', title: 'Item 2' },
+  { id: '3', title: 'Item 3' },
+  { id: '4', title: 'Item 4' },
+  { id: '5', title: 'Item 5' },
+  { id: '6', title: 'Item 6' },
+  { id: '7', title: 'Item 7' },
+  { id: '8', title: 'Item 8' },
+  { id: '9', title: 'Item 9' },
+  { id: '10', title: 'Item 10' }
+];
+
+export default function App() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <View className="flex-1 items-center justify-center bg-background p-5">
+      <Text className="text-xl font-bold text-success">
+        Welcome to Nativewind!
+      </Text>
+      <Link href="/onboarding" className="mt-4 rounded bg-primary text-white p-4">
+        Go to Onboarding
+      </Link>
+      <View className="flex-row mt-3 space-x-4 gap-1 ">
+          <Link href="/(auth)/sign-in" className="mt-4 rounded bg-foreground/50 text-white p-4">
+            Sign In
+          </Link>
+          <Link href="/(auth)/sign-up" className="mt-4 rounded bg-foreground text-white p-4">
+            Sign Up
+          </Link>
+      </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <Link
+        href={{
+          pathname: "/subscriptions/[id]",
+          params: { id: "spotify" },
+        }}
+      >
+        Spotify subscription
+      </Link>
+      <Link
+       href={
+        {
+          pathname: "/subscriptions/[id]",
+          params: { id: "claude" }
+        }
+       }
+      >
+        claude Max Subscription
+      </Link>
+
+
+      <ScrollView className="mt-4 w-full border border-primary rounded">
+        <FlatList
+          data={DATA}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View className="p-4 border-b border-gray-200">
+              <Text className="text-lg">{item.title}</Text>
+            </View>
+          )}
+        />
+      </ScrollView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
