@@ -52,7 +52,7 @@ const SubscriptionCard = ({
           <View className="sub-details">
             <View className="sub-row">
               <View className="sub-row-copy">
-                <Text className="sub-label">Pyment:</Text>
+                <Text className="sub-label">Payment:</Text>
                 <Text
                   className="sub-value"
                   numberOfLines={1}
@@ -64,7 +64,7 @@ const SubscriptionCard = ({
             </View>
             <View className="sub-row">
               <View className="sub-row-copy">
-                <Text className="sub-label">category:</Text>
+                <Text className="sub-label">Category:</Text>
                 <Text
                   className="sub-value"
                   numberOfLines={1}

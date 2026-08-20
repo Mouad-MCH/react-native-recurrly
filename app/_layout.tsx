@@ -3,8 +3,10 @@ import '@/globale.css';
 import { useFonts } from 'expo-font';
 import { useEffect } from "react";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function Tab() {
-  const [fontsloaded] = useFonts({
+  const [fontsloaded, error] = useFonts({
     'sans-regular': require('../assets/fonts/PlusJakartaSans-Regular.ttf'),
     'sans-bold': require('../assets/fonts/PlusJakartaSans-Bold.ttf'),
     'sans-semibold': require('../assets/fonts/PlusJakartaSans-SemiBold.ttf'),
@@ -14,12 +16,12 @@ export default function Tab() {
   })
 
   useEffect(() => {
-    if(fontsloaded) {
+    if(fontsloaded || error) {
       SplashScreen.hideAsync();
     }
-  }, [fontsloaded]);
-  
-  if(!fontsloaded) {
+  }, [fontsloaded, error]);
+
+  if(!fontsloaded && !error) {
     return null;
   }
 

@@ -1,8 +1,9 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import { formatCurrency } from '@/lib/utils'
+import { formatCurrency, getDaysLeft } from '@/lib/utils'
 
-const UpcomingSubscriptionCard = ({ name, price, daysLeft, icon, currency } : UpcomingSubscription) => {
+const UpcomingSubscriptionCard = ({ name, price, renewalDate, icon, currency } : UpcomingSubscription) => {
+  const daysLeft = getDaysLeft(renewalDate);
   return (
     <View className="upcoming-card">
       <View className='upcoming-row'>

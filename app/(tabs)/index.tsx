@@ -1,7 +1,8 @@
 import "@/globale.css";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { FlatList, Text, View, ScrollView, Image } from "react-native";
 import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { styled } from "nativewind";
 import images from "@/constants/images";
 import {
@@ -24,6 +25,7 @@ export default function App() {
   const [expandedSubscriptionId, setExpandedSubscriptionId] = useState<
     string | null
   >(null);
+  const tabBarHeight = useBottomTabBarHeight();
 
   return (
     <SafeAreaView className="flex-1 bg-background p-5">
@@ -56,7 +58,7 @@ export default function App() {
             </View>
 
             <View className="mb-5">
-              <ListHeading title="Upcoming" />
+              <ListHeading title="Upcoming" onPress={() => router.push("/insights")} />
               <FlatList
                 data={UPCOMING_SUBSCRIPTIONS}
                 renderItem={({ item }) => (
@@ -67,13 +69,13 @@ export default function App() {
                 showsHorizontalScrollIndicator={false}
                 ListEmptyComponent={
                   <Text className="home-empty-state">
-                    No upcoming renwewals yet.
+                    No upcoming renewals yet.
                   </Text>
                 }
               />
             </View>
 
-            <ListHeading title="All Subscriptions" />
+            <ListHeading title="All Subscriptions" onPress={() => router.push("/subscriptions")} />
           </>
         )}
         data={HOME_SUBSCRIPTIONS}
@@ -92,7 +94,7 @@ export default function App() {
         extraData={expandedSubscriptionId}
         ItemSeparatorComponent={() => <View className="h-4" />}
         showsVerticalScrollIndicator={false}
-        contentContainerClassName="pb-30"
+        contentContainerStyle={{ paddingBottom: tabBarHeight + 20 }}
       />
     </SafeAreaView>
   );
